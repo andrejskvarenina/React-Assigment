@@ -1,0 +1,75 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  width: 84%;
+  color: white;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.navbar p {
+  font-family: 'Bruno Ace';
+  letter-spacing: 8px;
+  font-size: 17px;
+  color: rgb(229, 229, 229);
+  display: inline-block;
+}
+
+.pages {
+  display: flex;
+  font-size: 20px;
+  gap: 15px;
+  height: min-content;
+  background: transparent;
+  flex-wrap: wrap;
+}
+
+.pages a {
+  font-family: 'Bruno Ace';
+  font-size: 15px;
+  text-decoration: none;
+  color: white;
+  width: 20px;
+  height: 20px;
+  border: 1px solid rgb(111, 210, 255);
+  box-shadow: 0px 0px 5px rgb(111, 210, 255);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 5px;
+}
+
+.pages a:hover {
+  background-color: rgba(111, 209, 255, 0.408);
+}
+
+.pages a.active {
+  background-color: rgb(111, 210, 255);
+  color: black;
+  border: 1px solid white;
+  box-shadow: none;
+}
+
+.previous-page-button {
+  background: transparent;
+  box-shadow: 0px 0px 5px rgb(111, 210, 255);
+  border: 1px solid rgb(111, 210, 255);
+  color: white;
+  font-family: 'Bruno Ace';
+  font-size: 17px;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.previous-page-button:hover {
+  background-color: rgba(111, 209, 255, 0.408);
+}
+
+.previous-page-button:active {
+  background-color: rgb(111, 210, 255);
+  color: black;
+}
+
+
+

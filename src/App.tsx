@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import CharactersPage from "./pages/characters-page/characters-page";
 import './App.css'
-import { Pagination } from "./components/pagination/pagination";
+import { Navbar } from "./components/pagination/navbar";
 import { useState } from "react";
 import { Header } from "./components/header/header";
 import CharacterDetailsPage from "./pages/character-details-page/character-details-page";
@@ -14,7 +14,7 @@ const App = () => {
       <div className="app">
         <Router>
           <Header />
-          <Pagination currentPage={currentPage} pages={pages}/>
+          <Navbar currentPage={currentPage} pages={pages}/>
           <Routes>
             <Route path="/" element={<CharactersPage page={1} setCurrentPage={setCurrentPage} />} />
             {pages.map((page) => (
