@@ -1,0 +1,9 @@
+.characters {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 35px;
+  flex-wrap: wrap;
+  padding: 0px 50px;
+}
+

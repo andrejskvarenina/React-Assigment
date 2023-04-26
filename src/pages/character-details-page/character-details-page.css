@@ -1,0 +1,39 @@
+.character-details-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.character-details {
+  display: flex;
+  gap: 50px;
+  width: 1000px;
+  padding-right: 50px;
+  background-color: white;
+  border-radius: 25px;
+  overflow: hidden;
+}
+
+.character-details-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.character-details-info p {
+  font-family: Arial;
+  font-size: 20px;
+  color: rgb(91, 91, 91);
+}
+
+.character-details-info strong {
+  color: black;
+}
+
+
+.character-details-info h1 {
+  font-family: 'Press Start 2P';
+  color: rgb(91, 91, 91);
+  margin-bottom: 30px;
+}
