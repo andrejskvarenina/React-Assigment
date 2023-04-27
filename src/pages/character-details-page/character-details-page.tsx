@@ -1,23 +1,21 @@
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import { useParams } from "react-router-dom";
 import './character-details-page.css';
+// import { useContext } from 'react';
+// import { CharacterContext } from '../../context/character-context';
+import { useParams } from 'react-router-dom';
+import { useCharacter } from '../../hooks/useCharacter';
 
 const CharacterDetailsPage = () => {
+
   const { id } = useParams<{ id: string }>();
+  const { character, isCharacterLoading, isCharacterError } = useCharacter(id ?? null);
 
-  const { data: character, isError, isLoading } = useQuery(
-    ["character", id],
-    async () => {
-      return await axios.get(`https://swapi.dev/api/people/${id}/`).then((res) => res.data);
-    }
-  );
 
-  if (isLoading) {
+
+  if (isCharacterLoading) {
     return <h1>Loading...</h1>;
   }
 
-  if (isError || !character) {
+  if (isCharacterError || !character) {
     return <h1>There was an error while loading data.</h1>;
   }
 

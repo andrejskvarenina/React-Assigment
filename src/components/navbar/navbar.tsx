@@ -1,20 +1,38 @@
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import './navbar.css'
 import { useState, useEffect } from "react";
+import { useContext } from "react";
+import { PageContext } from "../../context/page-context";
+// import { CharacterContext } from "../../context/character-context";
+import { useCharacter } from "../../hooks/useCharacter";
 
 type PaginationProps = {
-  currentPage: number;
   pages: number[];
 };
 
-export const Navbar = ({ currentPage, pages } : PaginationProps) => {
+export const Navbar = ({ pages } : PaginationProps) => {
   const [animatedText, setAnimatedText] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
+  const { currentPage } = useContext(PageContext)
+
+  const characterIdMatch = location.pathname.match(/\/character\/(\d+)/);
+  const characterId = characterIdMatch ? characterIdMatch[1] : null;
+
+  const { character, isCharacterError, isCharacterLoading } = useCharacter(characterId)
 
   useEffect(() => {
     let i = 0;
-    const targetText = `/ Page ${currentPage}`;
+    let targetText: string = '';
+  
+    if (location.pathname === "/" || location.pathname.startsWith("/page")) {
+      targetText = `/ Page ${currentPage}`;
+    } else if (character) {
+      targetText = `/ ${character?.name}`;
+    } else {
+      return; // Do not start the animation if character data is not available
+    }
+    
     const animateText = () => {
       if (i <= targetText.length) {
         setAnimatedText(targetText.substring(0, i));
@@ -23,30 +41,8 @@ export const Navbar = ({ currentPage, pages } : PaginationProps) => {
       }
     };
     animateText();
-  }, [currentPage]);
+  }, [currentPage, character]);
   
- 
-  // return (
-  //   <div className="navbar">
-  //     <p>Characters {animatedText}</p>
-  //     {location.pathname === "/" || location.pathname.startsWith("/page") ? (
-  //       <div className="pages">
-  //         {pages.map((page) => (
-  //           <Link
-  //             key={page}
-  //             to={`/page/${page}`}
-  //             className={currentPage === page ? "active" : ""}
-  //           >
-  //             {page}
-  //           </Link>
-  //         ))}
-  //       </div>
-  //     ) : (
-  //       <button className="previous-page-button" onClick={() => navigate(-1)}> &#8592; Back to previous page.</button>
-  //     )}
-  //   </div>
-  // );
-
   if (location.pathname === "/" || location.pathname.startsWith("/page")) {
     return (
       <div className="navbar">
@@ -67,7 +63,10 @@ export const Navbar = ({ currentPage, pages } : PaginationProps) => {
   } else {
     return (
       <div className="navbar">
-        <p>Character: </p>
+        {
+        (isCharacterError || !character || isCharacterLoading) ? <p>Character</p> : 
+        <p>Character {animatedText}</p> 
+        }
         <button className="previous-page-button" onClick={() => navigate(-1)}> &#8592; Back to previous page.</button>
       </div>
     )
