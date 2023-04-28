@@ -2,7 +2,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-export const useCharacter = (id: string | null) => {
+export const useGetCharacter = (id: string | null) => {
   const { data: character, isError: isCharacterError, isLoading: isCharacterLoading } = useQuery(["character", id], async () => {
     const response = await axios.get(`https://swapi.dev/api/people/${id}/`);
     return response.data;

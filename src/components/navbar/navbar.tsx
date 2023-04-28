@@ -3,8 +3,7 @@ import './navbar.css'
 import { useState, useEffect } from "react";
 import { useContext } from "react";
 import { PageContext } from "../../context/page-context";
-// import { CharacterContext } from "../../context/character-context";
-import { useCharacter } from "../../hooks/useCharacter";
+import { useGetCharacter } from "../../hooks/useGetCharacter";
 
 type PaginationProps = {
   pages: number[];
@@ -19,7 +18,7 @@ export const Navbar = ({ pages } : PaginationProps) => {
   const characterIdMatch = location.pathname.match(/\/character\/(\d+)/);
   const characterId = characterIdMatch ? characterIdMatch[1] : null;
 
-  const { character, isCharacterError, isCharacterLoading } = useCharacter(characterId)
+  const { character, isCharacterError, isCharacterLoading } = useGetCharacter(characterId)
 
   useEffect(() => {
     let i = 0;

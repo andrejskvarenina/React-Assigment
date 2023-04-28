@@ -2,14 +2,12 @@ import './character-details-page.css';
 // import { useContext } from 'react';
 // import { CharacterContext } from '../../context/character-context';
 import { useParams } from 'react-router-dom';
-import { useCharacter } from '../../hooks/useCharacter';
+import { useGetCharacter } from '../../hooks/useGetCharacter';
 
 const CharacterDetailsPage = () => {
 
   const { id } = useParams<{ id: string }>();
-  const { character, isCharacterLoading, isCharacterError } = useCharacter(id ?? null);
-
-
+  const { character, isCharacterLoading, isCharacterError } = useGetCharacter(id ?? null);
 
   if (isCharacterLoading) {
     return <h1>Loading...</h1>;
