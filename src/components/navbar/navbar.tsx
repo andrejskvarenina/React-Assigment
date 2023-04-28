@@ -1,46 +1,39 @@
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import './navbar.css'
-import { useState, useEffect } from "react";
+import { useMemo } from "react";
 import { useContext } from "react";
 import { PageContext } from "../../context/page-context";
 import { useGetCharacter } from "../../hooks/useGetCharacter";
+import { useAnimatedText } from "../../hooks/useAnimateText";
 
 type PaginationProps = {
   pages: number[];
 };
 
 export const Navbar = ({ pages } : PaginationProps) => {
-  const [animatedText, setAnimatedText] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
   const { currentPage } = useContext(PageContext)
-
+   
   const characterIdMatch = location.pathname.match(/\/character\/(\d+)/);
   const characterId = characterIdMatch ? characterIdMatch[1] : null;
 
   const { character, isCharacterError, isCharacterLoading } = useGetCharacter(characterId)
 
-  useEffect(() => {
-    let i = 0;
-    let targetText: string = '';
-  
+  const targetText = useMemo(() => {
     if (location.pathname === "/" || location.pathname.startsWith("/page")) {
-      targetText = `/ Page ${currentPage}`;
+      return `/ Page ${currentPage}`;
     } else if (character) {
-      targetText = `/ ${character?.name}`;
+      return `/ ${character?.name}`;
     } else {
-      return; // Do not start the animation if character data is not available
+      return "";
     }
-    
-    const animateText = () => {
-      if (i <= targetText.length) {
-        setAnimatedText(targetText.substring(0, i));
-        i++;
-        setTimeout(animateText, 100);
-      }
-    };
-    animateText();
   }, [currentPage, character]);
+  
+  const animatedText = useAnimatedText(targetText, [targetText]);
+  
+
+ 
   
   if (location.pathname === "/" || location.pathname.startsWith("/page")) {
     return (
