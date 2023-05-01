@@ -30,7 +30,7 @@ export const FilteredCharactersProvider: React.FC<FilteredCharactersProviderProp
   const navigate = useNavigate();
 
   const onFilterChange = (gender: string) => {
-    let filtered: Character[] = [];
+    let filtered: Character[] | null = [];
   
     if (gender === "male" || gender === "female") {
       filtered = allCharacters?.filter((character) => character.gender === gender) ?? [];
@@ -38,6 +38,8 @@ export const FilteredCharactersProvider: React.FC<FilteredCharactersProviderProp
       filtered = allCharacters?.filter(
         (character) => character.gender !== "male" && character.gender !== "female"
       ) ?? [];
+    } else if (gender === "off") {
+      filtered = null;
     } else {
       filtered = allCharacters ?? [];
     }
@@ -49,7 +51,7 @@ export const FilteredCharactersProvider: React.FC<FilteredCharactersProviderProp
     }
   
     // Calculate the total pages for filtered characters
-    const filteredCharactersCount = filtered.length;
+    const filteredCharactersCount = filtered?.length ?? allCharacters?.length ?? 0;
     const totalPages = Math.ceil(filteredCharactersCount / 10);
     setTotalPages(totalPages);
   };

@@ -3,6 +3,7 @@ import './character-details-page.css';
 // import { CharacterContext } from '../../context/character-context';
 import { useParams } from 'react-router-dom';
 import { useGetCharacter } from '../../hooks/useGetCharacter';
+import { Loader } from '../../components/loader/loader';
 
 const CharacterDetailsPage = () => {
 
@@ -10,7 +11,9 @@ const CharacterDetailsPage = () => {
   const { character, isCharacterLoading, isCharacterError } = useGetCharacter(id ?? null);
 
   if (isCharacterLoading) {
-    return <h1>Loading...</h1>;
+    return (
+      <Loader/>
+    )
   }
 
   if (isCharacterError || !character) {

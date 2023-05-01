@@ -1,7 +1,7 @@
 .filter-component {
   display: flex;
-  width: 84%;
   justify-content: space-between;
+  width: 100%;
 }
 
 .gender-filter {
@@ -9,6 +9,26 @@
   gap: 10px;
 }
 
-.gender-filter button {
+.gender-button {
+  background: transparent;
+  box-shadow: 0px 0px 5px rgb(111, 210, 255);
+  border: 1px solid rgb(111, 210, 255);
+  color: white;
+  font-family: 'Poppins';
+  font-weight: 400;
+  font-size: 15px;
+  padding: 2px 10px;
   cursor: pointer;
+  border-radius: 5px;
+}
+
+.gender-button:hover {
+  background-color: rgba(111, 209, 255, 0.408);
+}
+
+.gender-button.active {
+  background-color: rgb(111, 210, 255);
+  color: black;
+  border: 1px solid white;
+  box-shadow: none;
 }

@@ -22,13 +22,15 @@
 }
 
 .character-details-info p {
-  font-family: Arial;
+  font-family: 'Poppins';
+  font-weight: 300;
   font-size: 20px;
   color: rgb(91, 91, 91);
 }
 
 .character-details-info strong {
   color: black;
+  margin-right: 5px;
 }
 
 

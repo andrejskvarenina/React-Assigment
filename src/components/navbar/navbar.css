@@ -1,7 +1,7 @@
 .navbar {
   display: flex;
   align-items: center;
-  width: 84%;
+  width: 100%;
   color: white;
   flex: 1;
   justify-content: space-between;
@@ -55,7 +55,8 @@
   box-shadow: 0px 0px 5px rgb(111, 210, 255);
   border: 1px solid rgb(111, 210, 255);
   color: white;
-  font-family: 'Bruno Ace';
+  font-family: 'Poppins';
+  font-weight: 500;
   font-size: 17px;
   padding: 5px 10px;
   cursor: pointer;
