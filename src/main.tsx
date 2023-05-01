@@ -4,6 +4,7 @@ import App from './App.tsx'
 import './index.css'
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 import { PageContextProvider } from './context/page-context.tsx'
+import { FilteredCharactersProvider } from './context/filtered-characters-context.tsx'
 import { BrowserRouter as Router } from "react-router-dom";
 
 const client = new QueryClient()
@@ -11,11 +12,13 @@ const client = new QueryClient()
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <Router>
-      <QueryClientProvider client={client}>
-        <PageContextProvider>
-          <App />
-        </PageContextProvider>
-      </QueryClientProvider>
+        <QueryClientProvider client={client}>
+          <PageContextProvider>
+            <FilteredCharactersProvider>
+              <App />
+            </FilteredCharactersProvider>
+          </PageContextProvider>
+        </QueryClientProvider>
     </Router>
   </React.StrictMode>,
 )

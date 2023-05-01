@@ -1,0 +1,14 @@
+.filter-component {
+  display: flex;
+  width: 84%;
+  justify-content: space-between;
+}
+
+.gender-filter {
+  display: flex;
+  gap: 10px;
+}
+
+.gender-filter button {
+  cursor: pointer;
+}

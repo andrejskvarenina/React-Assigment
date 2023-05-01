@@ -10,10 +10,10 @@ type PaginationProps = {
   pages: number[];
 };
 
-export const Navbar = ({ pages } : PaginationProps) => {
+export const Navbar = ({ pages }: PaginationProps) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { currentPage } = useContext(PageContext)
+  const { currentPage, totalPages } = useContext(PageContext)
    
   const characterIdMatch = location.pathname.match(/\/character\/(\d+)/);
   const characterId = characterIdMatch ? characterIdMatch[1] : null;
@@ -32,15 +32,12 @@ export const Navbar = ({ pages } : PaginationProps) => {
   
   const animatedText = useAnimatedText(targetText, [targetText]);
   
-
- 
-  
   if (location.pathname === "/" || location.pathname.startsWith("/page")) {
     return (
       <div className="navbar">
         <p>Characters {animatedText}</p>
         <div className="pages">
-           {pages.map((page) => (
+           {pages.slice(0, totalPages).map((page) => (
             <Link
                key={page}
                to={`/page/${page}`}
@@ -59,9 +56,9 @@ export const Navbar = ({ pages } : PaginationProps) => {
         (isCharacterError || !character || isCharacterLoading) ? <p>Character</p> : 
         <p>Character {animatedText}</p> 
         }
-        <button className="previous-page-button" onClick={() => navigate(-1)}> &#8592; Back to previous page.</button>
+        <button className="previous-page-button" onClick={() => navigate(-1)}> &#8592; Back</button>
       </div>
     )
   }
-  
 }
+
