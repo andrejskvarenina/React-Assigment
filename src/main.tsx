@@ -4,7 +4,7 @@ import App from './App.tsx'
 import './index.css'
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 import { PageContextProvider } from './context/page-context.tsx'
-import { FilteredCharactersProvider } from './context/filtered-characters-context.tsx'
+import { FilteredCharactersContextProvider } from './context/filtered-characters-context.tsx'
 import { BrowserRouter as Router } from "react-router-dom";
 
 const client = new QueryClient()
@@ -14,9 +14,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <Router>
         <QueryClientProvider client={client}>
           <PageContextProvider>
-            <FilteredCharactersProvider>
+            <FilteredCharactersContextProvider>
               <App />
-            </FilteredCharactersProvider>
+            </FilteredCharactersContextProvider>
           </PageContextProvider>
         </QueryClientProvider>
     </Router>

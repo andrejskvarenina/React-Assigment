@@ -6,7 +6,7 @@ import { PageContext } from '../../context/page-context'
 import { CharacterFilter } from '../../components/character-filter/character-filter'
 import { useGetAllCharacters } from '../../hooks/useGetAllCharacters';
 import { Character } from '../../types/types';
-import { FilteredCharactersContext } from '../../context/filtered-characters-context';
+import { FilteredCharactersContext } from '../../context/filtered-characters-context'
 import { Loader } from '../../components/loader/loader'
 
 type CharactersPageProps = {
@@ -33,7 +33,10 @@ const CharactersPage = ({ page }: CharactersPageProps) => {
 
   if (isAllCharactersLoading) {
     return (
-      <Loader />
+      <>
+        <Loader />
+        <p>Loading . . .</p>
+      </>
     )
   }
 

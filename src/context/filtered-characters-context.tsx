@@ -8,25 +8,30 @@ type FilteredCharactersContextType = {
   filteredCharacters: Character[] | null;
   setFilteredCharacters: (characters: Character[] | null) => void;
   onFilterChange: (gender: string) => void;
+  selectedGender: string;
+  setSelectedGender: (gender: string) => void;
 };
 
 export const FilteredCharactersContext = createContext<FilteredCharactersContextType>({
   filteredCharacters: null,
   setFilteredCharacters: () => {},
   onFilterChange: () => {},
+  selectedGender: "",
+  setSelectedGender: () => {},
 });
 
 type FilteredCharactersProviderProps = {
   children: React.ReactNode;
 };
 
-export const FilteredCharactersProvider: React.FC<FilteredCharactersProviderProps> = ({
+export const FilteredCharactersContextProvider: React.FC<FilteredCharactersProviderProps> = ({
   children,
 }) => {
   const { currentPage, setTotalPages } = useContext(PageContext)
   const { allCharacters } = useGetAllCharacters();
   const [filteredCharacters, setFilteredCharacters] = useState<Character[] | null>(null);
- 
+  const [selectedGender, setSelectedGender] = useState("");
+   
   const navigate = useNavigate();
 
   const onFilterChange = (gender: string) => {
@@ -36,7 +41,7 @@ export const FilteredCharactersProvider: React.FC<FilteredCharactersProviderProp
       filtered = allCharacters?.filter((character) => character.gender === gender) ?? [];
     } else if (gender === "other") {
       filtered = allCharacters?.filter(
-        (character) => character.gender !== "male" && character.gender !== "female"
+        (character) => (character.gender !== "male" && character.gender !== "female")
       ) ?? [];
     } else if (gender === "off") {
       filtered = null;
@@ -58,7 +63,7 @@ export const FilteredCharactersProvider: React.FC<FilteredCharactersProviderProp
 
   return (
     <FilteredCharactersContext.Provider
-      value={{ filteredCharacters, setFilteredCharacters, onFilterChange }}
+      value={{ filteredCharacters, setFilteredCharacters, onFilterChange, selectedGender, setSelectedGender }}
     >
       {children}
     </FilteredCharactersContext.Provider>

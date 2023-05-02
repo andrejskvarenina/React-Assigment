@@ -1,11 +1,10 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import "./character-filter.css";
 import { FilteredCharactersContext } from "../../context/filtered-characters-context";
 
 export const CharacterFilter = () => {
-  const { onFilterChange, filteredCharacters } = useContext(FilteredCharactersContext)
-  const [selectedGender, setSelectedGender] = useState("");
-
+  const { onFilterChange, filteredCharacters, selectedGender, setSelectedGender } = useContext(FilteredCharactersContext)
+  
   const handleFilterClick = (gender: string) => {
     onFilterChange(gender);
     setSelectedGender(gender);

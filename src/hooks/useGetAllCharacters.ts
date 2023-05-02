@@ -9,10 +9,10 @@ const fetchAllCharacters = async () => {
   const brokenCharacterId = 17;
 
   while (hasMorePages) {
-    const response = await axios.get(`https://swapi.dev/api/people/?page=${nextPage}`);
+    const response = await axios.get(`https://swapi.py4e.com/api/people/?page=${nextPage}`);
     const charactersData = response.data.results;
     nextPage += 1;
-    hasMorePages = response.data.next !== null;
+    hasMorePages = response.data.next !== null && response.data.next !== undefined;
 
     const charactersWithId = charactersData.map((character: Character, index: number) => {
       const id = (nextPage - 2) * 10 + index + 1;
