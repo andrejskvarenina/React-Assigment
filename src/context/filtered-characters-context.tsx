@@ -10,6 +10,9 @@ type FilteredCharactersContextType = {
   onFilterChange: (gender: string) => void;
   selectedGender: string;
   setSelectedGender: (gender: string) => void;
+  searchValue: string;
+  setSearchValue: (value: string) => void;
+  onSearchChange: (search: string) => void;
 };
 
 export const FilteredCharactersContext = createContext<FilteredCharactersContextType>({
@@ -18,6 +21,9 @@ export const FilteredCharactersContext = createContext<FilteredCharactersContext
   onFilterChange: () => {},
   selectedGender: "",
   setSelectedGender: () => {},
+  searchValue: "",
+  setSearchValue: () => {},
+  onSearchChange: () => {},
 });
 
 type FilteredCharactersProviderProps = {
@@ -27,13 +33,16 @@ type FilteredCharactersProviderProps = {
 export const FilteredCharactersContextProvider: React.FC<FilteredCharactersProviderProps> = ({
   children,
 }) => {
-  const { currentPage, setTotalPages } = useContext(PageContext)
-  const { allCharacters } = useGetAllCharacters();
-  const [filteredCharacters, setFilteredCharacters] = useState<Character[] | null>(null);
-  const [selectedGender, setSelectedGender] = useState("");
-   
   const navigate = useNavigate();
 
+  const { currentPage, setTotalPages } = useContext(PageContext)
+  const { allCharacters } = useGetAllCharacters();
+
+  const [filteredCharacters, setFilteredCharacters] = useState<Character[] | null>(null);
+  const [selectedGender, setSelectedGender] = useState("");
+
+  const [searchValue, setSearchValue] = useState("");
+   
   const onFilterChange = (gender: string) => {
     let filtered: Character[] | null = [];
   
@@ -61,9 +70,39 @@ export const FilteredCharactersContextProvider: React.FC<FilteredCharactersProvi
     setTotalPages(totalPages);
   };
 
+  const onSearchChange = (search: string) => {
+    setSelectedGender("");
+    onFilterChange("off");
+  
+    setSearchValue(search);
+    if (search) {
+      const searchedCharacters = allCharacters?.filter((character) =>
+        character.name.toLowerCase().includes(search.toLowerCase())
+      );
+      setFilteredCharacters(searchedCharacters ?? null);
+  
+      // Calculate the total pages for searched characters
+      const searchedCharactersCount = searchedCharacters?.length ?? 0;
+      const totalPages = Math.ceil(searchedCharactersCount / 10);
+      setTotalPages(totalPages);
+    } else {
+      setFilteredCharacters(null);
+    }
+  };
+  
+
   return (
     <FilteredCharactersContext.Provider
-      value={{ filteredCharacters, setFilteredCharacters, onFilterChange, selectedGender, setSelectedGender }}
+    value={{
+      filteredCharacters,
+      setFilteredCharacters,
+      onFilterChange,
+      selectedGender,
+      setSelectedGender,
+      searchValue,
+      setSearchValue,
+      onSearchChange,
+    }}
     >
       {children}
     </FilteredCharactersContext.Provider>

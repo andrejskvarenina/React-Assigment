@@ -32,3 +32,22 @@
   border: 1px solid white;
   box-shadow: none;
 }
+
+.name-search-input {
+  background-color: transparent;
+  color: white;
+  font-family: 'Poppins';
+  border: 1px solid rgb(111, 210, 255);
+  box-shadow: 0px 0px 5px rgb(111, 210, 255);
+  border-radius: 5px;
+  padding-left: 10px;
+}
+
+.name-search-input::placeholder {
+  color: rgb(255, 255, 255);
+}
+
+.name-search-input:focus {
+  outline: 1px solid white;
+  background-color: rgba(111, 209, 255, 0.408);
+}

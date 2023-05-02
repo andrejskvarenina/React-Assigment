@@ -3,11 +3,12 @@ import "./character-filter.css";
 import { FilteredCharactersContext } from "../../context/filtered-characters-context";
 
 export const CharacterFilter = () => {
-  const { onFilterChange, filteredCharacters, selectedGender, setSelectedGender } = useContext(FilteredCharactersContext)
+  const { onFilterChange, filteredCharacters, selectedGender, setSelectedGender, searchValue, setSearchValue, onSearchChange } = useContext(FilteredCharactersContext)
   
   const handleFilterClick = (gender: string) => {
     onFilterChange(gender);
     setSelectedGender(gender);
+    setSearchValue("")
   };
 
   return (
@@ -35,15 +36,22 @@ export const CharacterFilter = () => {
           <button
             className="gender-button"
             onClick={() => {
-              onFilterChange("off")
+              onFilterChange("off");
               setSelectedGender("");
+              setSearchValue("");
             }}
           >
-            Turn Filter Off
+            Turn Filter / Search Off
           </button>
         )}
       </div>
-      <input type="text" />
+      <input
+        className="name-search-input"
+        placeholder="Search by Name"
+        type="text"
+        value={searchValue}
+        onChange={(e) => onSearchChange(e.target.value)}
+      />
     </div>
   );
   

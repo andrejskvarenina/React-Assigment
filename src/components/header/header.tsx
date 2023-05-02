@@ -5,13 +5,14 @@ import { FilteredCharactersContext } from '../../context/filtered-characters-con
 import { useContext } from 'react'
 
 export const Header = () => {
-  const { onFilterChange, setSelectedGender } = useContext(FilteredCharactersContext)
+  const { onFilterChange, setSelectedGender, setSearchValue } = useContext(FilteredCharactersContext)
 
   return (
     <header>
        <Link onClick={() => {
           onFilterChange("off")
           setSelectedGender("")
+          setSearchValue("")
        }} to='/'>
         <img className="logo" src={logo} alt="" />
         <p>CHARACTERS</p>
